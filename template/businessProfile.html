@@ -19,11 +19,47 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <div class="dropdown">
-                                <button class="btn">
-                                    Edit Business Profile
-                                </button>
-                            </div>
+                            <button class="btn">
+                                <a href="businessUpdate.html" style="color:white; text-decoration:none;"><b>Edit Business Profile</b></a>
+                            </button>
+                            <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+                                <b>Update Photos</b>
+                            </button> 
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Photo Updates</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="mainPhoto">Main Photo</label>
+                                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="smallPhoto-1">Small Photo 1</label>
+                                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="smallPhoto-2">Small Photo 2</label>
+                                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="smallPhoto-3">Small Photo 3</label>
+                                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                                </div>
+                                              </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
                         </li>
                     </ul>
                     
@@ -98,7 +134,7 @@
                             </ul>
                         </div>
                     </div>
-                    <h5><a class="nav-link" href="reviewPage.html" style="width:160px">More reviews</a></h5>
+                    <button class="btn"><a href="reviewPage.html" style="color:white; text-decoration:none;">More reviews</a></button>
                 </div>
             </div>
             <br />
