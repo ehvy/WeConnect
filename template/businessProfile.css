@@ -1,0 +1,45 @@
+.navbar{
+    padding-left: 50px;
+    padding-right: 50px;
+    margin: 0px;
+    background:rgb(49, 56, 56);
+    width: auto;
+}
+
+.nav-link{
+    color:white; 
+    background:rgb(4, 148, 153);
+    border-radius: 4px
+}
+
+.mainImage{
+    width: auto;
+}
+
+.btn{
+    background:rgb(4, 148, 153);
+    color: white;
+}
+
+.navbar-brand:hover{
+    border: 1px solid rgb(4, 148, 153);
+}
+
+.navbar-toggler, .navbar-toggler-icon{
+    background:rgb(4, 148, 153);
+}
+
+.container-foot{
+    padding: 20px;
+    height: 60px;
+    background:rgb(49, 56, 56);
+    color: white;
+    text-align: center;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width:100%
+}
+.dropdown-item:hover{
+    background: rgb(4, 148, 153);
+}
