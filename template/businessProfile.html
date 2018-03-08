@@ -22,6 +22,7 @@
                             <button class="btn">
                                 <a href="businessUpdate.html" style="color:white; text-decoration:none;"><b>Edit Business Profile</b></a>
                             </button>
+                            &nbsp;
                             <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
                                 <b>Update Photos</b>
                             </button> 
@@ -37,19 +38,19 @@
                                         <div class="modal-body">
                                             <form>
                                                 <div class="form-group">
-                                                    <label for="mainPhoto">Main Photo</label>
+                                                    <label for="mainPhoto">Main Photo. Should be 782 x 250</label>
                                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="smallPhoto-1">Small Photo 1</label>
+                                                    <label for="smallPhoto-1">Small Photo 1. Should be 300 x 250</label>
                                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="smallPhoto-2">Small Photo 2</label>
+                                                    <label for="smallPhoto-2">Small Photo 2. Should be 300 x 250</label>
                                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="smallPhoto-3">Small Photo 3</label>
+                                                    <label for="smallPhoto-3">Small Photo 3. Should be 300 x 250</label>
                                                     <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                                 </div>
                                               </form>
@@ -115,7 +116,7 @@
                         </div>
                         <hr />
                         <div class="form-group">
-                            <button class="btn">Submit</button>
+                            <button class="btn"><b>Submit</b></button>
                         </div>
                     </div>
                     <br />
@@ -134,10 +135,45 @@
                             </ul>
                         </div>
                     </div>
-                    <button class="btn"><a href="reviewPage.html" style="color:white; text-decoration:none;">More reviews</a></button>
+                    <button class="btn"><a href="reviewPage.html" style="color:white; text-decoration:none;"><b>More reviews</b></a></button>
                 </div>
             </div>
             <br />
+            <br />
+            <hr />
+            <div class="container col-md-6 offset-md-5">
+                <button type="button" class="btn" data-toggle="modal" data-target="#deleteBusiness">
+                    <b>Delete Business Account</b>
+                </button> 
+                <div class="modal fade" id="deleteBusiness" tabindex="-1" role="dialog" aria-labelledby="deleteBusinessLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteBusinessLabel">If you are certain about deleting your Bussiness account, fill the form below.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="business_name"><b>Bussiness Name</b></label>
+                                        <input type="business_name" class="form-control" id="business_name_delete" aria-describedby="emailHelp" placeholder="Enter Business Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email"><b>Email address</b></label>
+                                        <input type="email" class="form-control" id="email_delete" aria-describedby="emailHelp" placeholder="Enter email">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn">Delete</button>
+                                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
             <br />
             <br />
         </div>
