@@ -13,6 +13,8 @@ router.get('/api/v1', (req, res) => res.json({
 // signup page route
 router.post('/api/v1/auth/signup', Users.signUp);
 
+// login route
+router.post('/api/v1/auth/login', Users.login);
 
 // get all route
 router.get('*', (req, res) => res.status(404).json({
