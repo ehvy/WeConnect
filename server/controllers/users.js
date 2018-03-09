@@ -74,34 +74,3 @@ class Users {
 }
 
 export default Users;
-
-/*
-
-  */
-
-
-/*
-
-if (Object.keys(req.body).length < 2) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (!req.body.username && !req.body.password) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (req.body.password.length < 7) {
-      return res.json({
-        message: 'The number of password characters should not be less than 7',
-        error: true
-      });
-    }
-    return res.json({
-      message: 'Login Successful',
-      error: false
-    });
-
-    */
-
