@@ -111,6 +111,28 @@ class Businesses {
       error: false
     });
   }
+
+  /**
+     * @returns {Object} addreview
+     * @param {*} req
+     * @param {*} res
+     */
+  static addReview(req, res) {
+    const review = req.body;
+    for (let reviewCount = 0; reviewCount < businesses.length; reviewCount += 1) {
+      if (businesses[reviewCount].id === parseInt(req.params.businessid, 10)) {
+        businesses[reviewCount].reviews.push(review);
+        return res.json({
+          reviews: businesses[reviewCount].reviews,
+          message: 'Success',
+          error: false
+        });
+      }
+    }
+    return res.status(404).json({
+      message: 'Business not found',
+    });
+  }
 }
 
 export default Businesses;

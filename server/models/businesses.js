@@ -9,7 +9,20 @@ const businesses = [
     city: 'ikeja',
     state: 'lagos',
     description: 'A hotel and suite facility',
-    review: ['great', 'they need to improve']
+    reviews: [
+      {
+        id: 1,
+        name: 'jill',
+        review: 'great',
+        businessesid: 1
+      },
+      {
+        id: 2,
+        name: 'jake',
+        review: 'they need to improve',
+        businessesid: 1,
+      }
+    ]
   },
   {
     id: 2,
@@ -21,7 +34,20 @@ const businesses = [
     city: 'owerri',
     state: 'imo',
     description: 'A football club',
-    review: ['bad', 'good']
+    reviews: [
+      {
+        id: 1,
+        name: 'stark',
+        review: 'good',
+        businessesid: 2
+      },
+      {
+        id: 2,
+        name: 'drake',
+        review: 'Bad',
+        businessesid: 2,
+      }
+    ]
   }
 ];
 
