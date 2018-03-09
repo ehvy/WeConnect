@@ -30,6 +30,9 @@ router.delete('/api/v1/businesses/:businessid', Businesses.removeBusiness);
 // get business route
 router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
 
+// get all businesses route
+router.get('/api/v1/businesses', Businesses.getAllBusiness);
+
 // get all route
 router.get('*', (req, res) => res.status(404).json({
   message: 'Resource not found'
