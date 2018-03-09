@@ -1,14 +1,14 @@
-import users from '../models/businesses';
+import businesses from '../models/businesses';
 /**
  * @class businesses
  */
 class Businesses {
 /**
-   * @returns {Object} signUp
+   * @returns {Object} registerBusiness
    * @param {*} req
    * @param {*} res
    */
-  static signUp(req, res) {
+  static registerBusiness(req, res) {
     if (Object.keys(req.body).length < 8) {
       return res.json({
         message: 'Please fill all fields',
@@ -28,11 +28,12 @@ class Businesses {
         error: true
       });
     }
-    global.businesses.push(req.body);
+    businesses.push(req.body);
     return res.json({
       message: 'Registration Successful',
       error: false
     });
-  });  
   }
 }
+
+export default Businesses;
