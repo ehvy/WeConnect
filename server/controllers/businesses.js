@@ -35,7 +35,7 @@ class Businesses {
     });
   }
   /**
-     * @returns {Object} signUp
+     * @returns {Object} updateBusinessProfile
      * @param {*} req
      * @param {*} res
      */
@@ -63,7 +63,7 @@ class Businesses {
     }
   }
   /**
-     * @returns {Object} signUp
+     * @returns {Object} removeBusiness
      * @param {*} req
      * @param {*} res
      */
@@ -79,6 +79,25 @@ class Businesses {
     } return res.status(404).json({
       message: 'Bussiness not found',
       error: true
+    });
+  }
+  /**
+     * @returns {Object} getBusiness
+     * @param {*} req
+     * @param {*} res
+     */
+  static getBusiness(req, res) {
+    for (let businessCount = 0; businessCount <= businesses.length; businessCount += 1) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+        return res.json({
+          business: businesses[businessCount],
+          message: 'Success',
+          error: false
+        });
+      }
+    }
+    return res.status(404).json({
+      message: 'Business not found',
     });
   }
 }

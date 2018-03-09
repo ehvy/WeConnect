@@ -27,6 +27,9 @@ router.put('/api/v1/businesses/:businessid', Businesses.updateBusinessProfile);
 // remove a business profile route
 router.delete('/api/v1/businesses/:businessid', Businesses.removeBusiness);
 
+// get business route
+router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
+
 // get all route
 router.get('*', (req, res) => res.status(404).json({
   message: 'Resource not found'

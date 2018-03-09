@@ -22,7 +22,7 @@ const businesses = [
     state: 'imo',
     description: 'A football club',
     review: ['bad', 'good']
-  },
+  }
 ];
 
 export default businesses;
