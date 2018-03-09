@@ -35,7 +35,7 @@ class Businesses {
     });
   }
   /**
-     * @returns {Object} signUp
+     * @returns {Object} updateBusinessProfile
      * @param {*} req
      * @param {*} res
      */
@@ -63,7 +63,7 @@ class Businesses {
     }
   }
   /**
-     * @returns {Object} signUp
+     * @returns {Object} removeBusiness
      * @param {*} req
      * @param {*} res
      */
