@@ -62,6 +62,25 @@ class Businesses {
       });
     }
   }
+  /**
+     * @returns {Object} signUp
+     * @param {*} req
+     * @param {*} res
+     */
+  static removeBusiness(req, res) {
+    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+        businesses.splice(businessCount, 1);
+        return res.json({
+          message: 'Delete Successful',
+          error: false
+        });
+      }
+    } return res.status(404).json({
+      message: 'Bussiness not found',
+      error: true
+    });
+  }
 }
 
 export default Businesses;
