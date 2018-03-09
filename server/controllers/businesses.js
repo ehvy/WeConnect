@@ -100,6 +100,17 @@ class Businesses {
       message: 'Business not found',
     });
   }
+  /**
+     * @returns {Object} getAllBusiness
+     * @param {*} req
+     * @param {*} res
+     */
+  static getAllBusiness(req, res) {
+    res.json({
+      business: businesses,
+      error: false
+    });
+  }
 }
 
 export default Businesses;
