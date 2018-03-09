@@ -21,6 +21,9 @@ router.post('/api/v1/auth/login', Users.login);
 // register a business page route
 router.post('/api/v1/businesses', Businesses.registerBusiness);
 
+// update a business profile route
+router.put('/api/v1/businesses/:businessid', Businesses.updateBusinessProfile);
+
 // get all route
 router.get('*', (req, res) => res.status(404).json({
   message: 'Resource not found'

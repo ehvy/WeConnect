@@ -34,6 +34,34 @@ class Businesses {
       error: false
     });
   }
+  /**
+     * @returns {Object} signUp
+     * @param {*} req
+     * @param {*} res
+     */
+  static updateBusinessProfile(req, res) {
+    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+        businesses[businessCount].business_name = req.body.business_name;
+        businesses[businessCount].category = req.body.business_nam;
+        businesses[businessCount].phone_number = req.body.phone_number;
+        businesses[businessCount].email = req.body.email;
+        businesses[businessCount].address = req.body.address;
+        businesses[businessCount].city = req.body.city;
+        businesses[businessCount].state = req.body.state;
+        businesses[businessCount].description = req.body.description;
+        return res.json({
+          message: 'Update Successful',
+          error: false
+        });
+      }
+      return res.status(404).json({
+        message: 'Bussiness not found',
+        error: true
+
+      });
+    }
+  }
 }
 
 export default Businesses;
