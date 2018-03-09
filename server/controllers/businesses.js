@@ -119,12 +119,12 @@ class Businesses {
      */
   static addReview(req, res) {
     const review = req.body;
-    for (let reviewCount = 0; reviewCount < businesses.length; reviewCount += 1) {
-      if (businesses[reviewCount].id === parseInt(req.params.businessid, 10)) {
-        businesses[reviewCount].reviews.push(review);
+    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+        businesses[businessCount].reviews.push(review);
         return res.json({
-          reviews: businesses[reviewCount].reviews,
-          message: 'Success',
+          reviews: businesses[businessCount].reviews,
+          message: 'Add Review Successful',
           error: false
         });
       }
