@@ -22,8 +22,8 @@ class Users {
      */
   static login(req, res) {
     for (let userCount = 0; userCount < users.length; userCount += 1) {
-      if (users[userCount].username === req.body.username &&
-        users[userCount].password === req.body.password) {
+      if (users[userCount].username.toLowerCase() === req.body.username.toLowerCase() &&
+        users[userCount].password.toLowerCase() === req.body.password.toLowerCase()) {
         return res.status(202).json({
           message: 'Login Successful',
           error: false

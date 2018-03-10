@@ -35,7 +35,7 @@ router.delete('/api/v1/businesses/:businessid', validateBusiness.removeBusiness,
 router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
 
 // get all businesses route
-router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocation, Businesses.getAllBusiness);
+router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocation, validateBusiness.queryBusinessByCategory, Businesses.getAllBusiness);
 
 // add review route
 router.post('/api/v1/businesses/:businessid/reviews', validateBusiness.addReview, Businesses.addReview);

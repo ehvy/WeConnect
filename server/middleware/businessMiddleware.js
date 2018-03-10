@@ -87,6 +87,36 @@ class validateBusinesses {
 
     next();
   }
+  /**
+   * @returns {Object} query
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  static queryBusinessByCategory(req, res, next) {
+    const { category } = req.query;
+    const categoryArray = [];
+    if (category) {
+      for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+        if (category.toLowerCase() === businesses[businessCount].category.toLowerCase()) {
+          categoryArray.push(businesses[businessCount]);
+        }
+      }
+      if (categoryArray.length > 0) {
+        return res.status(200).json({
+          Search_result: categoryArray
+        });
+      }
+      return res.status(404).json({
+        message: 'Business not found',
+      });
+    }
+
+    const errors = req.validationErrors();
+    if (errors) { return errorMessage(res, errors[0].msg); }
+
+    next();
+  }
 }
 
 export default validateBusinesses;
