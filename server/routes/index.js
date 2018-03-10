@@ -33,7 +33,7 @@ router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
 // get all businesses route
 router.get('/api/v1/businesses', Businesses.getAllBusiness);
 
-// get add review route
+// add review route
 router.post('/api/v1/businesses/:businessid/reviews', Businesses.addReview);
 
 
