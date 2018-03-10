@@ -29,7 +29,7 @@ const businesses = [
     business_name: 'chiefs FC',
     category: 'sports',
     phone_number: '07034431099',
-    email: 'chiefsfc.com',
+    email: 'chiefsfc@gmail.com',
     address: '123 cook street',
     city: 'owerri',
     state: 'imo',

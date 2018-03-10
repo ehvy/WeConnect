@@ -9,27 +9,15 @@ class Businesses {
    * @param {*} res
    */
   static registerBusiness(req, res) {
-    if (Object.keys(req.body).length < 8) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (!req.body.business_name && !req.body.category &&
-       !req.body.phone_number && !req.body.email
-       && !req.body.address && !req.body.city && !req.body.state && !req.body.description) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (Number(req.body.phone_number) * 1 !== Number(req.body.phone_number) ||
+    if (Number(req.body.phone_number) * 1 !== Number(req.body.phone_number) ||
    Number(req.body.phone_number.substring(1)) * 1 !== Number(req.body.phone_number.substring(1))) {
-      return res.json({
-        message: 'Please enter a phone number',
+      return res.status(400).json({
+        message: 'Please enter a valid phone number',
         error: true
       });
     }
     businesses.push(req.body);
-    return res.json({
+    return res.status(200).json({
       message: 'Registration Successful',
       error: false
     });
@@ -50,7 +38,7 @@ class Businesses {
         businesses[businessCount].city = req.body.city;
         businesses[businessCount].state = req.body.state;
         businesses[businessCount].description = req.body.description;
-        return res.json({
+        return res.status(202).json({
           message: 'Update Successful',
           error: false
         });
@@ -69,7 +57,9 @@ class Businesses {
      */
   static removeBusiness(req, res) {
     for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10) &&
+       businesses[businessCount].business_name === req.body.business_name &&
+        businesses[businessCount].email === req.body.email) {
         businesses.splice(businessCount, 1);
         return res.json({
           message: 'Delete Successful',
@@ -106,22 +96,20 @@ class Businesses {
      * @param {*} res
      */
   static getAllBusiness(req, res) {
-    res.json({
+    res.status(200).json({
       business: businesses,
       error: false
     });
   }
-
   /**
      * @returns {Object} addreview
      * @param {*} req
      * @param {*} res
      */
   static addReview(req, res) {
-    const review = req.body;
     for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
       if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-        businesses[businessCount].reviews.push(review);
+        businesses[businessCount].reviews.push(req.body);
         return res.json({
           reviews: businesses[businessCount].reviews,
           message: 'Add Review Successful',
@@ -153,5 +141,4 @@ class Businesses {
     });
   }
 }
-
 export default Businesses;

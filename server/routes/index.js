@@ -4,6 +4,10 @@ import Users from '../controllers/users';
 
 import Businesses from '../controllers/businesses';
 
+import validateUser from '../middleware/userMiddleware';
+
+import validateBusiness from '../middleware/businessMiddleware';
+
 const router = express.Router();
 
 
@@ -13,28 +17,28 @@ router.get('/api/v1', (req, res) => res.json({
 }));
 
 // signup page route
-router.post('/api/v1/auth/signup', Users.signUp);
+router.post('/api/v1/auth/signup', validateUser.signUp, Users.signUp);
 
 // login route
-router.post('/api/v1/auth/login', Users.login);
+router.post('/api/v1/auth/login', validateUser.login, Users.login);
 
 // register a business page route
-router.post('/api/v1/businesses', Businesses.registerBusiness);
+router.post('/api/v1/businesses', validateBusiness.registerBusiness, Businesses.registerBusiness);
 
 // update a business profile route
-router.put('/api/v1/businesses/:businessid', Businesses.updateBusinessProfile);
+router.put('/api/v1/businesses/:businessid', validateBusiness.registerBusiness, Businesses.updateBusinessProfile);
 
 // remove a business profile route
-router.delete('/api/v1/businesses/:businessid', Businesses.removeBusiness);
+router.delete('/api/v1/businesses/:businessid', validateBusiness.removeBusiness, Businesses.removeBusiness);
 
 // get business route
 router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
 
 // get all businesses route
-router.get('/api/v1/businesses', Businesses.getAllBusiness);
+router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocation, Businesses.getAllBusiness);
 
 // add review route
-router.post('/api/v1/businesses/:businessid/reviews', Businesses.addReview);
+router.post('/api/v1/businesses/:businessid/reviews', validateBusiness.addReview, Businesses.addReview);
 
 // get all business review route
 router.get('/api/v1/businesses/:businessid/reviews', Businesses.getAllReviews);
