@@ -31,7 +31,7 @@ class Businesses {
     for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
       if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
         businesses[businessCount].business_name = req.body.business_name;
-        businesses[businessCount].category = req.body.business_nam;
+        businesses[businessCount].category = req.body.business_name;
         businesses[businessCount].phone_number = req.body.phone_number;
         businesses[businessCount].email = req.body.email;
         businesses[businessCount].address = req.body.address;
