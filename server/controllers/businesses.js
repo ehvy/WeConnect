@@ -27,17 +27,17 @@ class Businesses {
      * @param {*} req
      * @param {*} res
      */
-    static updateBusinessProfile(req, res) {
-      for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-        if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-          businesses[businessCount].business_name = req.body.business_name.toLowerCase();
-          businesses[businessCount].category = req.body.category.toLowerCase();
-          businesses[businessCount].phone_number = req.body.phone_number;
-          businesses[businessCount].email = req.body.email;
-          businesses[businessCount].address = req.body.address.toLowerCase();
-          businesses[businessCount].city = req.body.city.toLowerCase();
-          businesses[businessCount].state = req.body.state.toLowerCase();
-          businesses[businessCount].description = req.body.description;
+  static updateBusinessProfile(req, res) {
+    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
+        businesses[businessCount].business_name = req.body.business_name.toLowerCase();
+        businesses[businessCount].category = req.body.category.toLowerCase();
+        businesses[businessCount].phone_number = req.body.phone_number;
+        businesses[businessCount].email = req.body.email;
+        businesses[businessCount].address = req.body.address.toLowerCase();
+        businesses[businessCount].city = req.body.city.toLowerCase();
+        businesses[businessCount].state = req.body.state.toLowerCase();
+        businesses[businessCount].description = req.body.description;
         return res.status(202).json({
           message: 'Update Successful',
           error: false
