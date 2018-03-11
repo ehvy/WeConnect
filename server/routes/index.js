@@ -12,7 +12,7 @@ const router = express.Router();
 
 
 // homepage route
-router.get('/api/v1', (req, res) => res.json({
+router.get('/api/v1', (req, res) => res.status(200).json({
   message: 'Welcome to WeConnect'
 }));
 
@@ -49,4 +49,3 @@ router.get('*', (req, res) => res.status(404).json({
 }));
 
 export default router;
-
