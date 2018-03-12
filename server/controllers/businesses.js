@@ -78,17 +78,20 @@ class Businesses {
      * @param {*} res
      */
   static getBusiness(req, res) {
-    for (let businessCount = 0; businessCount <= businesses.length; businessCount += 1) {
+    const businessWithId = [];
+    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
       if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-        return res.json({
-          business: businesses[businessCount],
-          message: 'Success',
-          error: false
-        });
+        businessWithId.push(businesses[businessCount]);
       }
     }
-    return res.status(404).json({
-      message: 'Business not found',
+    if (businessWithId.length > 0) {
+      return res.status(200).json({
+        business: businessWithId,
+          error: false
+        });
+    } return res.status(404).json({
+      message: 'business not found',
+      error: false
     });
   }
   /**
@@ -97,7 +100,7 @@ class Businesses {
      * @param {*} res
      */
   static getAllBusiness(req, res) {
-    res.status(200).json({
+    return res.status(200).json({
       business: businesses,
       error: false
     });
@@ -113,7 +116,7 @@ class Businesses {
         businesses[businessCount].reviews.push(req.body);
         return res.json({
           reviews: businesses[businessCount].reviews,
-          message: 'Add Review Successful',
+          message: 'Add review successful',
           error: false
         });
       }

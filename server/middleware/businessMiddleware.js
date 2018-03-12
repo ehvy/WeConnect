@@ -15,8 +15,9 @@ class validateBusinesses {
    * @param {*} next
    */
   static registerBusiness(req, res, next) {
-    req.check('business_name', 'Business_name is required').notEmpty();
-    req.check('category', 'category is required').notEmpty();
+    req.check('business_name', 'Business name is required').notEmpty();
+    req.check('category', 'Category is required').notEmpty();
+    req.check('phone_number', 'Phone number is required').notEmpty();
     req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Email is not valid').isEmail();
     req.check('address', 'Address is required').notEmpty();
@@ -51,7 +52,7 @@ class validateBusinesses {
    */
   static addReview(req, res, next) {
     req.check('name', 'Name is required').notEmpty();
-    req.check('review', 'review is required').notEmpty();
+    req.check('review', 'Review is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) { return errorMessage(res, errors[0].msg); }
 
@@ -72,15 +73,16 @@ class validateBusinesses {
           locationArray.push(businesses[businessCount]);
         }
       }
-      if (locationArray.length > 0) {
-        return res.status(200).json({
-          Search_result: locationArray
+      if (locationArray.length === 0) {
+        return res.status(404).json({
+          message: 'Business not found',
         });
       }
-      return res.status(404).json({
-        message: 'Business not found',
-      });
-    }
+        return res.status(200).json({
+          Search_result: locationArray,
+          message: 'Success'
+        });
+      }
 
     const errors = req.validationErrors();
     if (errors) { return errorMessage(res, errors[0].msg); }

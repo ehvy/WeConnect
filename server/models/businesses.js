@@ -26,7 +26,7 @@ const businesses = [
   },
   {
     id: 2,
-    business_name: 'chiefs FC',
+    business_name: 'chiefs fc',
     category: 'sports',
     phone_number: '07034431099',
     email: 'chiefsfc@gmail.com',

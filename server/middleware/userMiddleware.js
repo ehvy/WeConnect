@@ -14,8 +14,10 @@ class validateUsers {
    */
   static signUp(req, res, next) {
     req.check('username', 'Username is required').notEmpty();
+    req.check('email', 'Email is required').notEmpty();
     req.check('email', 'Email is not valid').isEmail();
-    req.check('email', 'Email is not valid').isEmail();
+    req.check('password', 'Password is required').notEmpty();
+    req.check('password2', 'Password confirmation is required').notEmpty();
     req
       .check('password', 'Minimum password length is 7 characters')
       .isLength({ min: 7 });

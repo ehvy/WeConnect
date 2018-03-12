@@ -9,10 +9,17 @@ class Users {
      * @param {*} res
      */
   static signUp(req, res) {
-    users.push(req.body);
+    const newUser = req.body;
+    if (newUser) {
+      users.push(newUser);
     return res.status(200).json({
       message: 'Signup Successful',
       error: false
+    });
+  }
+    return res.status(400).json({
+      message: 'Signup Unsuccessful',
+      error: true
     });
   }
   /**
