@@ -87,8 +87,8 @@ class Businesses {
     if (businessWithId.length > 0) {
       return res.status(200).json({
         business: businessWithId,
-          error: false
-        });
+        error: false
+      });
     } return res.status(404).json({
       message: 'business not found',
       error: false

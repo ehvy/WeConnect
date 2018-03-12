@@ -78,11 +78,11 @@ class validateBusinesses {
           message: 'Business not found',
         });
       }
-        return res.status(200).json({
-          Search_result: locationArray,
-          message: 'Success'
-        });
-      }
+      return res.status(200).json({
+        Search_result: locationArray,
+        message: 'Success'
+      });
+    }
 
     const errors = req.validationErrors();
     if (errors) { return errorMessage(res, errors[0].msg); }
