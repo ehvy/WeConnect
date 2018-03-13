@@ -4,6 +4,11 @@ const errorMessage = (res, message) => res.status(400).json({
   message,
   error: true
 });
+
+const errorMessage1 = (res, message) => res.status(404).json({
+  message,
+  error: true
+});
 /**
  * @class validateBusinesses
  */
@@ -74,9 +79,7 @@ class validateBusinesses {
         }
       }
       if (locationArray.length === 0) {
-        return res.status(404).json({
-          message: 'Business not found',
-        });
+        return errorMessage1(res, 'Business not found');
       }
       return res.status(200).json({
         Search_result: locationArray,
@@ -109,9 +112,7 @@ class validateBusinesses {
           Search_result: categoryArray
         });
       }
-      return res.status(404).json({
-        message: 'Business not found',
-      });
+      return errorMessage1(res, 'Business not found');
     }
 
     const errors = req.validationErrors();
