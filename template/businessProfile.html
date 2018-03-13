@@ -111,8 +111,12 @@
                     <h5><u>Review section</u></h5>
                     <div class="container">
                         <div class="form-group">
-                            <label for="comment"><b><u>Comments</u></b></label>
-                            <textarea class="form-control" id="comment" rows="5" required></textarea>
+                            <label for="name"><b>Name</b></label>
+                            <input type="name" class="form-control" name="name" id="reviewer_name" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="review"><b><u>Reviews</u></b></label>
+                            <textarea class="form-control" name="review" id="review" rows="5" required></textarea>
                         </div>
                         <hr />
                         <div class="form-group">
@@ -158,11 +162,11 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="business_name"><b>Bussiness Name</b></label>
-                                        <input type="business_name" class="form-control" id="business_name_delete" aria-describedby="emailHelp" placeholder="Enter Business Name">
+                                        <input type="business_name" class="form-control" name="business_name" id="business_name_delete" aria-describedby="emailHelp" placeholder="Enter Business Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="email"><b>Email address</b></label>
-                                        <input type="email" class="form-control" id="email_delete" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <input type="email" class="form-control" name="email" id="email_delete" aria-describedby="emailHelp" placeholder="Enter email">
                                     </div>
                                 </form>
                             </div>
@@ -185,7 +189,7 @@
 
     <footer>
         <div class="container-foot">
-            <h5>WeConnect &copy;2018 </h5> 
+            <h5>WeConnect &copy;2018</h5> 
         </div>
     </footer>
 
