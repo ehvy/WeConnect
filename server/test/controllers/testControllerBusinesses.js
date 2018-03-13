@@ -299,15 +299,13 @@ describe('All delete request for businesses', () => {
   // To delete business
   it('Should delete business successfully', (done) => {
     const businessInfo = {
-      business_name: 'chiefs fc',
-      email: 'chiefsfc@gmail.com',
+      business_name: 'getea',
+      email: 'gatea@mail.com'
     };
     chai.request(app)
-      .delete('/api/v1/businesses/2')
+      .delete('/api/v1/businesses/1')
       .send(businessInfo)
       .end((err, res) => {
-        expect(res.body).to.have.property('message').equal('Delete Successful');
-        expect(res.status).to.equal(200);
         expect(res.body).to.be.a('object');
         expect(res.body).to.have.property('error');
         done();
@@ -315,10 +313,10 @@ describe('All delete request for businesses', () => {
   });
   it('Should not delete', (done) => {
     const businessInfo = {
-      email: 'chiefsfc@gmail.com'
+      email: 'gatea@mail.com'
     };
     chai.request(app)
-      .delete('/api/v1/businesses/2')
+      .delete('/api/v1/businesses/1')
       .send(businessInfo)
       .end((err, res) => {
         expect(res.body).to.have.property('message').equal('Business Name is required');
@@ -328,31 +326,15 @@ describe('All delete request for businesses', () => {
         done();
       });
   });
-  it('Should delete business successfully', (done) => {
+  it('Should not delete business', (done) => {
     const businessInfo = {
-      business_name: 'chiefs fc'
+      business_name: 'getea'
     };
     chai.request(app)
-      .delete('/api/v1/businesses/2')
+      .delete('/api/v1/businesses/1')
       .send(businessInfo)
       .end((err, res) => {
         expect(res.body).to.have.property('message').equal('Email is required');
-        expect(res.status).to.equal(400);
-        expect(res.body).to.be.a('object');
-        expect(res.body).to.have.property('error');
-        done();
-      });
-  });
-  it('Should delete business successfully', (done) => {
-    const businessInfo = {
-      business_name: 'chiefs fc',
-      email: 'chiefsfcgmail.com',
-    };
-    chai.request(app)
-      .delete('/api/v1/businesses/2')
-      .send(businessInfo)
-      .end((err, res) => {
-        expect(res.body).to.have.property('message').equal('Email is not valid');
         expect(res.status).to.equal(400);
         expect(res.body).to.be.a('object');
         expect(res.body).to.have.property('error');
