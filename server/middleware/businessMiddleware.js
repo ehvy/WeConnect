@@ -9,6 +9,12 @@ const errorMessage1 = (res, message) => res.status(404).json({
   message,
   error: true
 });
+
+const successMessage = (res, message) => res.status(200).json({
+  message,
+  error: false
+});
+
 /**
  * @class validateBusinesses
  */
@@ -69,57 +75,62 @@ class validateBusinesses {
    * @param {*} res
    * @param {*} next
    */
-  static queryBusinessByLocation(req, res, next) {
-    const { location } = req.query;
-    const locationArray = [];
-    if (location) {
-      for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-        if (location.toLowerCase() === businesses[businessCount].state.toLowerCase()) {
-          locationArray.push(businesses[businessCount]);
+  static queryBusinessByLocationOrCategory(req, res, next) {
+    const { location, category } = req.query;
+    const resultArray = [];
+    if (location || category) {
+      if (location) {
+        for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+          if (location.toLowerCase() === businesses[businessCount].state.toLowerCase()) {
+            resultArray.push(businesses[businessCount]);
+          }
+        }
+        if (resultArray.length === 0) {
+          return errorMessage1(res, 'Business not found');
         }
       }
-      if (locationArray.length === 0) {
-        return errorMessage1(res, 'Business not found');
-      }
-      return res.status(200).json({
-        Search_result: locationArray,
-        message: 'Success'
-      });
-    }
-
-    const errors = req.validationErrors();
-    if (errors) { return errorMessage(res, errors[0].msg); }
-
-    next();
-  }
-  /**
-   * @returns {Object} query
-   * @param {*} req
-   * @param {*} res
-   * @param {*} next
-   */
-  static queryBusinessByCategory(req, res, next) {
-    const { category } = req.query;
-    const categoryArray = [];
-    if (category) {
-      for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-        if (category.toLowerCase() === businesses[businessCount].category.toLowerCase()) {
-          categoryArray.push(businesses[businessCount]);
+      if (category) {
+        for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+          if (category.toLowerCase() === businesses[businessCount].category.toLowerCase()) {
+            resultArray.push(businesses[businessCount]);
+          }
+        }
+        if (resultArray.length === 0) {
+          return errorMessage1(res, 'Business not found');
         }
       }
-      if (categoryArray.length > 0) {
-        return res.status(200).json({
-          Search_result: categoryArray
-        });
-      }
-      return errorMessage1(res, 'Business not found');
+      return successMessage(res, resultArray);
     }
-
-    const errors = req.validationErrors();
-    if (errors) { return errorMessage(res, errors[0].msg); }
-
     next();
   }
+  // /**
+  //  * @returns {Object} query
+  //  * @param {*} req
+  //  * @param {*} res
+  //  * @param {*} next
+  //  */
+  // static queryBusinessByCategory(req, res, next) {
+  //   const { category } = req.query;
+  //   const categoryArray = [];
+  //   if (category) {
+  //     for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
+  //       if (category.toLowerCase() === businesses[businessCount].category.toLowerCase()) {
+  //         categoryArray.push(businesses[businessCount]);
+  //       }
+  //     }
+  //     if (categoryArray.length > 0) {
+  //       return res.status(200).json({
+  //         Search_result: categoryArray
+  //       });
+  //     }
+  //     return errorMessage1(res, 'Business not found');
+  //   }
+
+  //   const errors = req.validationErrors();
+  //   if (errors) { return errorMessage(res, errors[0].msg); }
+
+  //   next();
+  // }
 }
 
 export default validateBusinesses;

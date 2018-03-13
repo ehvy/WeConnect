@@ -40,20 +40,10 @@ describe('Test remove business function', () => {
 
 describe('Test remove business function', () => {
   it('should return a function', () => {
-    expect(middleware.queryBusinessByLocation).to.be.a('function');
+    expect(middleware.queryBusinessByLocationOrCategory).to.be.a('function');
   });
 
   it('should accept three arguments', () => {
-    expect(middleware.queryBusinessByLocation.length).to.equal(3);
-  });
-});
-
-describe('Test remove business function', () => {
-  it('should return a function', () => {
-    expect(middleware.queryBusinessByCategory).to.be.a('function');
-  });
-
-  it('should accept three arguments', () => {
-    expect(middleware.queryBusinessByCategory.length).to.equal(3);
+    expect(middleware.queryBusinessByLocationOrCategory.length).to.equal(3);
   });
 });
