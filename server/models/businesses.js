@@ -23,31 +23,6 @@ const businesses = [
         businessesid: 1,
       }
     ]
-  },
-  {
-    id: 2,
-    business_name: 'chiefs fc',
-    category: 'sports',
-    phone_number: '07034431099',
-    email: 'chiefsfc@gmail.com',
-    address: '123 cook street',
-    city: 'owerri',
-    state: 'imo',
-    description: 'A football club',
-    reviews: [
-      {
-        id: 1,
-        name: 'stark',
-        review: 'good',
-        businessesid: 2
-      },
-      {
-        id: 2,
-        name: 'drake',
-        review: 'Bad',
-        businessesid: 2,
-      }
-    ]
   }
 ];
 
