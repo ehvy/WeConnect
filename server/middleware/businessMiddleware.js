@@ -5,10 +5,10 @@ const errorMessage = (res, message) => res.status(400).json({
   error: true
 });
 
-const errorMessage1 = (res, message) => res.status(404).json({
-  message,
-  error: true
-});
+// const errorMessage1 = (res, message) => res.status(404).json({
+//   message,
+//   error: true
+// });
 
 const successMessage = (res, message) => res.status(200).json({
   message,
@@ -77,26 +77,21 @@ class validateBusinesses {
    */
   static queryBusinessByLocationOrCategory(req, res, next) {
     const { location, category } = req.query;
-    const resultArray = [];
     if (location || category) {
-      if (location) {
-        for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-          if (location.toLowerCase() === businesses[businessCount].state.toLowerCase()) {
-            resultArray.push(businesses[businessCount]);
-          }
+      const resultArray = [];
+      businesses.forEach((business) => {
+        if (location === business.state) {
+          resultArray.push(business);
         }
-      }
-      if (category) {
-        for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-          if (category.toLowerCase() === businesses[businessCount].category.toLowerCase()) {
-            resultArray.push(businesses[businessCount]);
-          }
+        if (category === business.category) {
+          resultArray.push(business);
         }
-      }
+      });
+
       if (resultArray.length > 0) {
         return successMessage(res, resultArray);
       }
-      return errorMessage1(res, 'Business not found');
+      return res.sendStatus(404);
     }
     next();
   }
