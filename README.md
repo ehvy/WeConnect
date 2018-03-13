@@ -2,6 +2,8 @@
 
 [![Build Status](https://www.travis-ci.org/ehvy/WeConnect.svg?branch=travis)](https://www.travis-ci.org/ehvy/WeConnect)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/269160eeda305992e887/maintainability)](https://codeclimate.com/github/ehvy/WeConnect/maintainability)
+
 A business application for connecting business bodies with consumers. This application will ensure business transactions between parties are well documented with feedbacks. Go here to access the app https://ehvy.github.io/WeConnect/template/index.html
 
 # Description
