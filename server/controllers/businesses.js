@@ -37,7 +37,7 @@ class Businesses {
         businesses[businessCount].address = req.body.address.toLowerCase();
         businesses[businessCount].city = req.body.city.toLowerCase();
         businesses[businessCount].state = req.body.state.toLowerCase();
-        businesses[businessCount].description = req.body.description;
+        businesses[businessCount].description = req.body.description.toLowerCase();
         return res.status(202).json({
           message: 'Update Successful',
           error: false
