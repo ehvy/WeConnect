@@ -10,7 +10,7 @@ const app = express();
 const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);
 
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
