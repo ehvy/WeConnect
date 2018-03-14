@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node -- bin/www",
+    "start": "nodemon --watch server --exec babel-node -- app.js",
     "test": "nyc --reporter=html --reporter=text mocha ./server/test/**/*.js --exit --compilers js:babel-register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
