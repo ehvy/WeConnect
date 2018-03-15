@@ -5,11 +5,6 @@ const errorMessage = (res, message) => res.status(400).json({
   error: true
 });
 
-// const errorMessage1 = (res, message) => res.status(404).json({
-//   message,
-//   error: true
-// });
-
 const successMessage = (res, message) => res.status(200).json({
   message,
   error: false
