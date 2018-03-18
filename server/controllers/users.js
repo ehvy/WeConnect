@@ -1,4 +1,5 @@
-import users from '../models/users';
+import { user } from '../models';
+
 /**
  * @class users
  */
@@ -8,33 +9,32 @@ class Users {
      * @param {*} req
      * @param {*} res
      */
-  static signUp(req, res) {
-    users.push(req.body);
-    return res.status(200).json({
-      message: 'Signup Successful',
-      error: false
-    });
-  }
-  /**
-     * @returns {Object} login
-     * @param {*} req
-     * @param {*} res
-     */
-  static login(req, res) {
-    for (let userCount = 0; userCount < users.length; userCount += 1) {
-      if (users[userCount].username.toLowerCase() === req.body.username.toLowerCase() &&
-        users[userCount].password.toLowerCase() === req.body.password.toLowerCase()) {
-        return res.status(202).json({
-          message: 'Login Successful',
-          error: false
+  static signup(req, res) {
+    user.find({
+      where: {
+        username: req.body.username,
+      }
+    }).then((username) => {
+      if (username) {
+        return res.status(400).json({
+          message: 'Username already exists',
+          error: true
         });
       }
-      return res.status(401).json({
-        message: 'Login Unsuccessful',
-        error: true
+      return user.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        password2: req.body.password2
       });
-    }
+    })
+
+      .then(newUser => res.status(201).json({
+        message: 'Signup Successful',
+        error: false,
+        newUser
+      }))
+      .catch(error => res.status(400).json({ error }));
   }
 }
-
 export default Users;
