@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
-  const Review = sequelize.define('review_list', {
-    review_list: {
+  const Review = sequelize.define('Review', {
+    review: {
       type: DataTypes.JSON,
       allowNull: false
     },
   });
   Review.associate = (models) => {
-    Review.belongsTo(models.business, {
+    Review.belongsTo(models.Business, {
       foreignKey: 'businessId',
       onDelete: 'CASCADE',
     });

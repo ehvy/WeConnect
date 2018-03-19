@@ -1,4 +1,11 @@
-import { user } from '../models';
+import hashCode, { hashSync } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import models from '../models/index';
+
+
+const { secret } = process.env;
+
+const { User } = models;
 
 /**
  * @class users
@@ -10,30 +17,43 @@ class Users {
      * @param {*} res
      */
   static signup(req, res) {
-    user.find({
-      where: {
-        username: req.body.username,
-      }
-    }).then((username) => {
-      if (username) {
-        return res.status(400).json({
-          message: 'Username already exists',
-          error: true
-        });
-      }
-      return user.create({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        password2: req.body.password2
-      });
+    return User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashSync(req.body.password, 10),
+      password2: hashSync(req.body.password, 10),
     })
-
       .then(newUser => res.status(201).json({
         message: 'Signup Successful',
         error: false,
         newUser
       }))
+      .catch(error => res.status(400).json({ error }));
+  }
+  /**
+     * @returns {Object} login
+     * @param {*} req
+     * @param {*} res
+     */
+  static login(req, res) {
+    const { username, password } = req.body;
+    User.findOne({ where: { username } })
+      .then((logInUser) => {
+        if (logInUser && hashCode.compareSync(password, logInUser.password)) {
+          const userInfo = {
+            username: logInUser.username,
+            email: logInUser.email,
+            id: logInUser.id
+          };
+          const token = jwt.sign(userInfo, secret, { expiresIn: '10h' });
+          return res.status(201).json({
+            message: 'Successful login',
+            error: false,
+            userInfo,
+            token,
+          });
+        }
+      })
       .catch(error => res.status(400).json({ error }));
   }
 }

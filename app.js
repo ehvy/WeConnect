@@ -1,3 +1,4 @@
+import env from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
@@ -5,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import router from './server/routes/index';
 
+require('dotenv').config();
 
 const app = express();
 const swaggerDocument = YAML.load(`${process.cwd()}/swagger.yaml`);

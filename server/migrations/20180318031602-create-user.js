@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('users', {
+    queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,19 +10,12 @@ module.exports = {
       username: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: {
-          args: true,
-          msg: 'Email is already taken',
-        },
-        validate: {
-          isEmail: {
-            msg: 'Invalid email, Enter a valid email, with this format: emailname@mail.com'
-          }
-        }
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
@@ -41,5 +34,5 @@ module.exports = {
         type: Sequelize.DATE
       },
     }),
-  down: queryInterface => queryInterface.dropTable('users'),
+  down: queryInterface => queryInterface.dropTable('Users'),
 };

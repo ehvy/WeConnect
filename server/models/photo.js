@@ -1,27 +1,31 @@
 module.exports = (sequelize, DataTypes) => {
-  const photo = sequelize.define('photo', {
-    main_image: {
+  const Photo = sequelize.define('Photo', {
+    mainImage: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'http://via.placeholder.com/782X250'
     },
-    small_image1: {
+    smallImage1: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'http://via.placeholder.com/300x250'
     },
-    small_image2: {
+    smallImage2: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'http://via.placeholder.com/300x250'
     },
-    small_image3: {
+    smallImage3: {
       type: DataTypes.STRING,
       allowNull: false,
+      defaultValue: 'http://via.placeholder.com/300x250'
     },
   });
-  photo.associate = (models) => {
-    photo.belongsTo(models.business, {
+  Photo.associate = (models) => {
+    Photo.belongsTo(models.Business, {
       foreignKey: 'businessId',
       onDelete: 'CASCADE',
     });
   };
-  return photo;
+  return Photo;
 };

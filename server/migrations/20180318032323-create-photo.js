@@ -1,25 +1,25 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('photos', {
+    queryInterface.createTable('Photos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      main_image: {
+      mainImage: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      small_image1: {
+      smallImage1: {
         type: Sequelize.STRING,
         allownull: true,
       },
-      small_image2: {
+      smallImage2: {
         type: Sequelize.STRING,
         allowNull: true
       },
-      small_image3: {
+      smallImage3: {
         type: Sequelize.STRING,
         allowNull: true
       },
@@ -35,11 +35,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'businesses',
+          model: 'Businesses',
           key: 'id',
           as: 'businessId',
         },
       },
     }),
-  down: queryInterface => queryInterface.dropTable('photos'),
+  down: queryInterface => queryInterface.dropTable('Photos'),
 };

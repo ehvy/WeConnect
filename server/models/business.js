@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const business = sequelize.define('business', {
-    business_name: {
+  const Business = sequelize.define('Business', {
+    businessName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone_number: {
+    phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -46,19 +46,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  business.associate = (models) => {
-    business.hasMany(models.review_list, {
+  Business.associate = (models) => {
+    Business.hasMany(models.Review, {
       foreignKey: 'businessId',
       as: 'reviews',
     });
-    business.hasMany(models.photo, {
+    Business.hasMany(models.Photo, {
       foreignKey: 'businessId',
       as: 'photos',
     });
-    business.belongsTo(models.user, {
+    Business.belongsTo(models.User, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   };
-  return business;
+  return Business;
 };

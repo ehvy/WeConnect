@@ -1,13 +1,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('businesses', {
+    queryInterface.createTable('Businesses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      busines_name: {
+      businessName: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: {
@@ -19,22 +19,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      phone_number: {
+      phoneNumber: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: {
-          args: true,
-          msg: 'Email is already taken',
-        },
-        validate: {
-          isEmail: {
-            msg: 'Invalid email, Enter a valid email, with this format: emailname@mail.com'
-          }
-        }
+        unique: true,
       },
       address: {
         type: Sequelize.STRING,
@@ -64,11 +56,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'users',
+          model: 'Users',
           key: 'id',
           as: 'userId',
         },
       },
     }),
-  down: queryInterface => queryInterface.dropTable('businesses'),
+  down: queryInterface => queryInterface.dropTable('Businesses'),
 };
