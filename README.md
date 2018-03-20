@@ -11,7 +11,7 @@ A business application for connecting business bodies with consumers. This appli
 
 - [Tech stack](#tech-stack)
 
-- [Installation-and-Setup](#installation-and-setup)
+- [Installation and Setup](#installation and setup)
 
 - [Licence](#licence)
 
