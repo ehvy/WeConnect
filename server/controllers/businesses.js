@@ -2,9 +2,7 @@ import jwt from 'jsonwebtoken';
 import models from '../models/index';
 
 const { secret } = process.env;
-
 const { Business } = models;
-
 const { Photo } = models;
 
 /**
@@ -85,33 +83,37 @@ class Businesses {
     jwt.verify(req.token, secret, (error, userAuthData) => {
       if (error) {
         return res.status(403).json({
-          message: 'Token unmatch'
+          message: 'Token does not match'
         });
       }
       Business
-        .find({
+        .findOne({
           where: {
             id: businessId,
             userId: userAuthData.id
           }
         })
         .then((business) => {
-          if (business) {
-            Business
-              .update({
-                businessName, category, phoneNumber, email, address, city, state, description
-              })
-              .then(newBusiness => res.status(201).json({
-                message: 'Business Update Successful',
-                error: false,
-                newBusiness,
-                userAuthData,
-              }))
-              .catch(err => res.status(400).json({ err }));
+          if (!business) {
+            return res.status(404).send({
+              message: 'Cannot update business!',
+            });
           }
-          return res.status(404).send({
-            message: 'Cannot update business!',
-          });
+          business
+            .update({
+              businessName,
+              category,
+              phoneNumber,
+              email,
+              address,
+              city,
+              state,
+              description
+            })
+            .then(businessUpdate => res.status(200).json({
+              message: 'Business Update Successful',
+              businessUpdate,
+            }));
         });
     });
   }

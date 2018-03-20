@@ -2,9 +2,7 @@ import hashCode, { hashSync } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import models from '../models/index';
 
-
 const { secret } = process.env;
-
 const { User } = models;
 
 /**

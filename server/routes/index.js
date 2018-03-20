@@ -1,11 +1,8 @@
 import express from 'express';
 
 import Users from '../controllers/users';
-
 import Businesses from '../controllers/businesses';
-
 import validateUser from '../middleware/userMiddleware';
-
 import validateBusiness from '../middleware/businessMiddleware';
 
 const router = express.Router();
@@ -26,7 +23,7 @@ router.post('/api/v1/auth/login', validateUser.login, Users.login);
 router.post('/api/v1/businesses', validateBusiness.registerBusiness, validateBusiness.secureRoute, Businesses.registerBusiness);
 
 // update business profile route
-router.put('/api/v1/businesses/:businessid', validateBusiness.registerBusiness, validateBusiness.secureRoute, Businesses.updateBusinessProfile);
+router.put('/api/v1/businesses/:businessId', validateBusiness.registerBusiness, validateBusiness.secureRoute, Businesses.updateBusinessProfile);
 
 // // remove a business profile route
 // router.delete('/api/v1/businesses/:businessid', validateBusiness.removeBusiness, Businesses.removeBusiness);
@@ -44,7 +41,7 @@ router.put('/api/v1/businesses/:businessid', validateBusiness.registerBusiness, 
 // router.get('/api/v1/businesses/:businessid/reviews', Businesses.getAllReviews);
 
 // get all route
-router.get('*', (req, res) => res.status(404).json({
+router.all('*', (req, res) => res.status(404).json({
   message: 'Resource not found'
 }));
 

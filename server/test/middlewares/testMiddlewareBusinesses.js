@@ -1,12 +1,10 @@
 import chai from 'chai';
-
 import chaiHttp from 'chai-http';
 
 import middleware from '../../middleware/businessMiddleware';
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
 
 describe('Test register business function', () => {
   it('should return a function', () => {
