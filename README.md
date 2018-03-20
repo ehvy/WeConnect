@@ -23,16 +23,24 @@ Homepage with links to login page, signup page ahd catalog page Catalog page wit
 
 # Tech stack
 1 Bootstrap
+
 2 NodeJS
+
 3 ExpressJS
+
 4 Postgresql
 
 # Installation-and-Setup
 1 Clone the repository
+
 2 Change directory to the cloned document
+
 3 Run npm install
+
 4 create .env file for environmental variables in your root directory 
+
 5 npm install sequelize-cli globally
+
 6 run npm start
 
 # Licence
