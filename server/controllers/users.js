@@ -1,4 +1,10 @@
-import users from '../models/users';
+import hashCode, { hashSync } from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import models from '../models/index';
+
+const { secret } = process.env;
+const { User } = models;
+
 /**
  * @class users
  */
@@ -8,69 +14,45 @@ class Users {
      * @param {*} req
      * @param {*} res
      */
-  static signUp(req, res) {
-    if (Object.keys(req.body).length < 4) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (!req.body.username && !req.body.email && !req.body.password && !req.body.password2) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (req.body.password !== req.body.password2) {
-      return res.json({
-        message: 'Make sure the passwords are the same',
-        error: true
-      });
-    } else if (req.body.password.length < 7) {
-      return res.json({
-        message: 'The number of password characters should not be less than 7',
-        error: true
-      });
-    }
-    users.push(req.body);
-    return res.json({
-      message: 'Signup Successful',
-      error: false
-    });
+  static signup(req, res) {
+    return User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashSync(req.body.password, 10),
+      password2: hashSync(req.body.password, 10),
+    })
+      .then(newUser => res.status(201).json({
+        message: 'Signup Successful',
+        error: false,
+        newUser
+      }))
+      .catch(error => res.status(400).json({ error }));
   }
   /**
-     * @returns {Object} signUp
+     * @returns {Object} login
      * @param {*} req
      * @param {*} res
      */
   static login(req, res) {
-    for (let userCount = 0; userCount < users.length; userCount += 1) {
-      if (users[userCount].username === req.body.username &&
-        users[userCount].password === req.body.password) {
-        return res.json({
-          message: 'Login Successful',
-          error: false
-        });
-      } else if (Object.keys(req.body).length < 2) {
-        return res.json({
-          message: 'Please fill all fields',
-          error: true
-        });
-      } else if (!req.body.username && !req.body.password) {
-        return res.json({
-          message: 'Please fill all fields',
-          error: true
-        });
-      } else if (req.body.password.length < 7) {
-        return res.json({
-          message: 'The number of password characters should not be less than 7',
-          error: true
-        });
-      }
-      return res.json({
-        message: 'Login Unsuccessful',
-        error: true
-      });
-    }
+    const { username, password } = req.body;
+    User.findOne({ where: { username } })
+      .then((logInUser) => {
+        if (logInUser && hashCode.compareSync(password, logInUser.password)) {
+          const userInfo = {
+            username: logInUser.username,
+            email: logInUser.email,
+            id: logInUser.id
+          };
+          const token = jwt.sign(userInfo, secret, { expiresIn: '10h' });
+          return res.status(201).json({
+            message: 'Successful login',
+            error: false,
+            userInfo,
+            token,
+          });
+        }
+      })
+      .catch(error => res.status(400).json({ error }));
   }
 }
-
 export default Users;

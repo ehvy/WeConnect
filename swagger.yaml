@@ -1,0 +1,327 @@
+swagger: "2.0"
+info:
+  description: "This is a business web application."
+  version: "1.0.0"
+  title: "WeConnect"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "judevroh1234@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "weconnect-webapp.herokuapp.com"
+basePath: "/api/v1"
+tags:
+- name: "Users"
+  description: "API for user"
+- name: "Businesses"
+  description: "API for businesses"
+schemes:
+- "https"
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - "Users"
+      summary: "Add a new user"
+      description: "Registers a new user"
+      operationId: "addUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "A new user to register"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSignUp"
+      responses:
+        200:
+          description: "Registraation Successful"
+  /auth/login:
+    post:
+      tags:
+      - "Users"
+      summary: "Login user"
+      description: "Login a registered user"
+      operationId: "loginUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "Login a registered user"
+        required: true
+        schema:
+          $ref: "#/definitions/UserLogin"
+      responses:
+        200:
+          description: "Login Successful"
+    
+  /businesses:
+    post:
+      tags:
+      - "Businesses"
+      summary: "Register a business"
+      description: "Register a business"
+      operationId: "createNewBusiness"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "businesses"
+        description: "Creating a new business"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterBusiness"
+      responses: 
+        200:
+          description: "Successful Registration"
+          
+    get:
+      tags:
+      - "Businesses"
+      summary: "Get all businesses"
+      produces:
+      - "application/json"
+      parameter: []
+      responses:
+        200:
+          description: "OK"
+          
+            
+  /businesses/{businessId}:
+    get:
+      tags:
+      - "Businesses"
+      summary: "Get a business with an id param"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "businessId"
+        in: "path"
+        description: "Id to get a business"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "business found"
+          schema:
+            $ref: "#/definitions/BusinessFound"
+        400:
+          description: "Business not found"
+          
+    put:
+      tags:
+      - "Businesses"
+      summary: "Update business profile"
+      description: "This can only be done by the logged in user."
+      operationId: "updateBusiness"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "business"
+        in: "body"
+        description: "business that need to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterBusiness"
+      responses:
+        200:
+          description: "Business Update Successful"
+        404:
+          description: "Business not found"
+    delete:
+      tags:
+      - "Businesses"
+      summary: "Delete Business"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteBusiness"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "businessId"
+        in: "path"
+        description: "The id of the business that needs to be deleted"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Delete Successful"
+        404:
+          description: "Business not found"
+          
+  /businesses/{businessId}/reviews:
+    post:
+      tags:
+      - "Businesses"
+      summary: "Add a business review"
+      description: "Adding a business review"
+      operationId: "BusinessReview"
+      produces:
+      - "application/json"
+      parameters:
+      - name: businessId
+        in: "path"
+        description: "Adding a new business review"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "user object to add to database"
+        required: true
+        schema:
+          $ref: "#/definitions/BusinessReview"
+      responses: 
+        200:
+          description: "Review Successful Added"
+        
+    get:
+      tags:
+      - "Businesses"
+      summary: "Get all business reviews"
+      description: "All business reviews"
+      operationId: "AllBusinessReview"
+      produces:
+      - "application/json"
+      parameters:
+        - name: "businessId"
+          in: "path"
+          description: "Id to get business reviews"
+          required: true
+          type: "integer"
+      responses: 
+        200:
+          description: "Business Reviews found"
+        400: 
+          description: "Business not found"
+
+  /businesses?location=location:
+    get:
+      tags:
+      - "Businesses"
+      summary: "Get a business with specific location"
+      produceses:
+      - "application/json"
+      parameters:
+      - name: "location"
+        in: "query"
+        description: "Location to get a business"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "business found"
+          schema:
+            $ref: "#/definitions/BusinessFound"
+        400:
+          description: "Business not found"
+
+  /businesses?category=category:
+    get:
+      tags:
+      - "Businesses"
+      summary: "Get a business with specific location"
+      produceses:
+      - "application/json"
+      parameters:
+      - name: "category"
+        in: "query"
+        description: "category to get a business"
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: "business found"
+          schema:
+            $ref: "#/definitions/BusinessFound"
+        400:
+          description: "Invalid query supplied"
+ 
+definitions:
+  UserSignUp:
+    type: "object"
+    required: ["username", "email", "password", "password2"]
+    properties:
+      username:
+        type: "string"
+        uniqueItems: true
+      email:
+        type: "string"
+        uniqueItems: true
+      password:
+        type: "string"
+        uniqueItems: true
+      password2:
+        type: "string"
+        uniqueItems: true
+      
+  UserLogin:
+    type: "object"
+    required: ["username", "password"]
+    properties:
+      username:
+        type: "string"
+        uniqueItems: true
+      password:
+        type: "string"
+        uniqueItems: true
+
+  RegisterBusiness:
+    type: "object"
+    required: ["business_name", "category", "Phone_number", "email", "address", "city", "state", "description"]
+    properties:
+      business_name:
+        type: "string"
+        uniqueItems: true
+      category:
+        type: "string"
+        uniqueItems: true
+      phone_number:
+        type: "string"
+        uniqueItems: true
+      email:
+        type: "string"
+        uniqueItems: true
+      address:
+        type: "string"
+        uniqueItems: true
+      city:
+        type: "string"
+        uniqueItems: true
+      username:
+        type: "string"
+        uniqueItems: true
+      state:
+        type: "string"
+        uniqueItems: true
+      description:
+        type: "string"
+        uniqueItems: true
+    
+  BusinessFound:
+    type: "object"
+    required: ["business"]
+    properties:
+      business:
+        type: "object"
+        
+  AllBusinessesFound:
+    type: "object"
+    required: ["business"]
+    properties:
+      business:
+        type: "object"
+        
+  BusinessReview:
+    type: "object"
+    required: ["business_name", "review"]
+    properties:
+      businessname:
+        type: "string"
+      review:
+        type: "string"
+        

@@ -1,116 +1,121 @@
-import businesses from '../models/businesses';
+import jwt from 'jsonwebtoken';
+import models from '../models/index';
+
+const { secret } = process.env;
+const { Business } = models;
+const { Photo } = models;
+
 /**
  * @class businesses
  */
 class Businesses {
-/**
-   * @returns {Object} registerBusiness
-   * @param {*} req
-   * @param {*} res
-   */
+  /**
+     * @returns {Object} registerBusiness
+     * @param {*} req
+     * @param {*} res
+     */
   static registerBusiness(req, res) {
-    if (Object.keys(req.body).length < 8) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (!req.body.business_name && !req.body.category &&
-       !req.body.phone_number && !req.body.email
-       && !req.body.address && !req.body.city && !req.body.state && !req.body.description) {
-      return res.json({
-        message: 'Please fill all fields',
-        error: true
-      });
-    } else if (Number(req.body.phone_number) * 1 !== Number(req.body.phone_number) ||
-   Number(req.body.phone_number.substring(1)) * 1 !== Number(req.body.phone_number.substring(1))) {
-      return res.json({
-        message: 'Please enter a phone number',
+    let mainImage, smallImage1, smallImage2, smallImage3;
+    const {
+      businessName, category, phoneNumber, email, address,
+      city, state, description
+    } = req.body;
+    if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
+   Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
+      return res.status(400).json({
+        message: 'Please enter a valid phone number',
         error: true
       });
     }
-    businesses.push(req.body);
-    return res.json({
-      message: 'Registration Successful',
-      error: false
+    jwt.verify(req.token, secret, (error, userAuthData) => {
+      if (error) {
+        return res.status(403).json({
+          message: 'Token unmatch'
+        });
+      }
+      Business
+        .create({
+          businessName,
+          category,
+          phoneNumber,
+          email,
+          address,
+          city,
+          state,
+          description,
+          userId: userAuthData.id
+        })
+        .then(newBusiness => res.status(201).json({
+          message: 'Business Registration Successful',
+          error: false,
+          newBusiness,
+          userAuthData,
+        }))
+        .then(() => {
+          Photo
+            .create({
+              mainImage, smallImage1, smallImage2, smallImage3
+            });
+        })
+        .catch(err => res.status(400).json({ err }));
     });
   }
+
   /**
-     * @returns {Object} updateBusinessProfile
+     * @returns {Object} registerBusiness
      * @param {*} req
      * @param {*} res
      */
   static updateBusinessProfile(req, res) {
-    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-        businesses[businessCount].business_name = req.body.business_name;
-        businesses[businessCount].category = req.body.business_nam;
-        businesses[businessCount].phone_number = req.body.phone_number;
-        businesses[businessCount].email = req.body.email;
-        businesses[businessCount].address = req.body.address;
-        businesses[businessCount].city = req.body.city;
-        businesses[businessCount].state = req.body.state;
-        businesses[businessCount].description = req.body.description;
-        return res.json({
-          message: 'Update Successful',
-          error: false
-        });
-      }
-      return res.status(404).json({
-        message: 'Bussiness not found',
+    const { businessId } = req.params;
+    const {
+      businessName, category, phoneNumber, email, address,
+      city, state, description
+    } = req.body;
+    if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
+   Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
+      return res.status(400).json({
+        message: 'Please enter a valid phone number',
         error: true
-
       });
     }
-  }
-  /**
-     * @returns {Object} removeBusiness
-     * @param {*} req
-     * @param {*} res
-     */
-  static removeBusiness(req, res) {
-    for (let businessCount = 0; businessCount < businesses.length; businessCount += 1) {
-      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-        businesses.splice(businessCount, 1);
-        return res.json({
-          message: 'Delete Successful',
-          error: false
+
+    jwt.verify(req.token, secret, (error, userAuthData) => {
+      if (error) {
+        return res.status(403).json({
+          message: 'Token does not match'
         });
       }
-    } return res.status(404).json({
-      message: 'Bussiness not found',
-      error: true
-    });
-  }
-  /**
-     * @returns {Object} getBusiness
-     * @param {*} req
-     * @param {*} res
-     */
-  static getBusiness(req, res) {
-    for (let businessCount = 0; businessCount <= businesses.length; businessCount += 1) {
-      if (businesses[businessCount].id === parseInt(req.params.businessid, 10)) {
-        return res.json({
-          business: businesses[businessCount],
-          message: 'Success',
-          error: false
+      Business
+        .findOne({
+          where: {
+            id: businessId,
+            userId: userAuthData.id
+          }
+        })
+        .then((business) => {
+          if (!business) {
+            return res.status(404).send({
+              message: 'Cannot update business!',
+            });
+          }
+          business
+            .update({
+              businessName,
+              category,
+              phoneNumber,
+              email,
+              address,
+              city,
+              state,
+              description
+            })
+            .then(businessUpdate => res.status(200).json({
+              message: 'Business Update Successful',
+              businessUpdate,
+            }));
         });
-      }
-    }
-    return res.status(404).json({
-      message: 'Business not found',
-    });
-  }
-  /**
-     * @returns {Object} getAllBusiness
-     * @param {*} req
-     * @param {*} res
-     */
-  static getAllBusiness(req, res) {
-    res.json({
-      business: businesses,
-      error: false
     });
   }
 }
-
 export default Businesses;
