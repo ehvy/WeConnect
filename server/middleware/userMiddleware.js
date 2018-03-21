@@ -36,8 +36,7 @@ class validateUsers {
   static login(req, res, next) {
     req.check('username', 'Username is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
-    req
-      .check('password', 'Minimum password length is 7 characters')
+    req.check('password', 'Minimum password length is 7 characters')
       .isLength({ min: 7 });
     const errors = req.validationErrors();
     if (errors) { return errorMessage(res, errors[0].msg); }

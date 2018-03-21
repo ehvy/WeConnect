@@ -15,11 +15,11 @@ class Businesses {
      * @param {*} res
      */
   static registerBusiness(req, res) {
-    let mainImage, smallImage1, smallImage2, smallImage3;
     const {
       businessName, category, phoneNumber, email, address,
       city, state, description
     } = req.body;
+    let mainImage, smallImage1, smallImage2, smallImage3;
     if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
    Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
       return res.status(400).json({
@@ -27,10 +27,10 @@ class Businesses {
         error: true
       });
     }
-    jwt.verify(req.token, secret, (error, userAuthData) => {
+    jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
         return res.status(403).json({
-          message: 'Token unmatch'
+          message: 'Token does not match'
         });
       }
       Business
@@ -43,13 +43,13 @@ class Businesses {
           city,
           state,
           description,
-          userId: userAuthData.id
+          userId: userData.id
         })
         .then(newBusiness => res.status(201).json({
           message: 'Business Registration Successful',
           error: false,
           newBusiness,
-          userAuthData,
+          userData,
         }))
         .then(() => {
           Photo
@@ -62,7 +62,7 @@ class Businesses {
   }
 
   /**
-     * @returns {Object} registerBusiness
+     * @returns {Object} updateBusinessProfile
      * @param {*} req
      * @param {*} res
      */
@@ -80,17 +80,17 @@ class Businesses {
       });
     }
 
-    jwt.verify(req.token, secret, (error, userAuthData) => {
+    jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
         return res.status(403).json({
           message: 'Token does not match'
         });
       }
       Business
-        .findOne({
+        .find({
           where: {
             id: businessId,
-            userId: userAuthData.id
+            userId: userData.id
           }
         })
         .then((business) => {
@@ -99,7 +99,7 @@ class Businesses {
               message: 'Cannot update business!',
             });
           }
-          business
+          Business
             .update({
               businessName,
               category,
@@ -116,6 +116,79 @@ class Businesses {
             }));
         });
     });
+  }
+  /**
+     * @returns {Object} removeBusiness
+     * @param {*} req
+     * @param {*} res
+     */
+  static removeBusiness(req, res) {
+    const { businessId } = req.params;
+    const { businessName, email } = req.body;
+    jwt.verify(req.token, secret, (err, userData) => {
+      if (err) {
+        res.status(403).json({
+          message: 'Token does not match'
+        });
+      } else {
+        Business
+          .findOne({
+            where: {
+              id: businessId,
+              userId: userData.id,
+              businessName,
+              email
+            }
+          })
+          .then((business) => {
+            if (!business) {
+              return res.status(404).send({
+                message: 'Cannot delete business',
+              });
+            }
+            return business
+              .destroy()
+              .then(res.status(200).json({
+                message: 'Business Delete Successful'
+              }));
+          });
+      }
+    });
+  }
+  /**
+     * @returns {Object} A Business
+     * @param {*} req
+     * @param {*} res
+     */
+  static getBusiness(req, res) {
+    const { businessId } = req.params;
+    Business
+      .findById(businessId)
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({
+            message: 'Business Not Found',
+          });
+        }
+        return res.status(200).json({
+          message: 'Business Found',
+          business,
+        });
+      });
+  }
+  /**
+ * @returns {Object} All Businesses
+ * @param {*} req
+ * @param {*} res
+ */
+  static getAllBusiness(req, res) {
+    Business
+      .all()
+      .then(business => res.status(200).json({
+        message: 'Businesses found',
+        business
+      }))
+      .catch(error => res.status(500).json(error));
   }
 }
 export default Businesses;

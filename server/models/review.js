@@ -1,7 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     review: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false
     },
   });

@@ -7,8 +7,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      review_list: {
-        type: Sequelize.JSON,
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      review: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
