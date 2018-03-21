@@ -30,8 +30,8 @@ router.delete('/api/v1/businesses/:businessId', validateBusiness.secureRoute, Bu
 // get business route
 router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
 
-// // get all businesses route
-// router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocationOrCategory, Businesses.getAllBusiness);
+// get all businesses route
+router.get('/api/v1/businesses', Businesses.getAllBusiness);
 
 // // add review route
 // router.post('/api/v1/businesses/:businessId/reviews', validateBusiness.addReview, Businesses.addReview);

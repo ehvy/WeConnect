@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      review_list: {
+      reviewList: {
         type: Sequelize.JSON,
         allowNull: false,
       },

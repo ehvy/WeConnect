@@ -156,7 +156,7 @@ class Businesses {
     });
   }
   /**
-     * @returns {Object} getBusiness
+     * @returns {Object} A Business
      * @param {*} req
      * @param {*} res
      */
@@ -175,6 +175,20 @@ class Businesses {
           business,
         });
       });
+  }
+  /**
+ * @returns {Object} All Businesses
+ * @param {*} req
+ * @param {*} res
+ */
+  static getAllBusiness(req, res) {
+    Business
+      .all()
+      .then(business => res.status(200).json({
+        message: 'Businesses found!',
+        business
+      }))
+      .catch(error => res.status(500).json(error));
   }
 }
 export default Businesses;
