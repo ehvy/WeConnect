@@ -24,20 +24,20 @@ router.post('/api/v1/businesses', validateBusiness.registerBusiness, validateBus
 // update business profile route
 router.put('/api/v1/businesses/:businessId', validateBusiness.registerBusiness, validateBusiness.secureRoute, Businesses.updateBusinessProfile);
 
-// // remove a business profile route
-// router.delete('/api/v1/businesses/:businessid', validateBusiness.removeBusiness, Businesses.removeBusiness);
+// remove a business profile route
+router.delete('/api/v1/businesses/:businessId', validateBusiness.secureRoute, Businesses.removeBusiness);
 
 // // get business route
-// router.get('/api/v1/businesses/:businessid', Businesses.getBusiness);
+// router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
 
 // // get all businesses route
 // router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocationOrCategory, Businesses.getAllBusiness);
 
 // // add review route
-// router.post('/api/v1/businesses/:businessid/reviews', validateBusiness.addReview, Businesses.addReview);
+// router.post('/api/v1/businesses/:businessId/reviews', validateBusiness.addReview, Businesses.addReview);
 
 // // get all business review route
-// router.get('/api/v1/businesses/:businessid/reviews', Businesses.getAllReviews);
+// router.get('/api/v1/businesses/:businessId/reviews', Businesses.getAllReviews);
 
 // get all route
 router.all('*', (req, res) => res.status(404).json({

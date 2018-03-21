@@ -46,5 +46,20 @@ class validateBusinesses {
       error: true
     });
   }
+  // /**
+  //  * @returns {Object} query
+  //  * @param {*} req
+  //  * @param {*} res
+  //  * @param {*} next
+  //  */
+  // static removeBusiness(req, res, next) {
+  //   req.check('businessName', 'Business Name is required').notEmpty();
+  //   req.check('email', 'Email is required').notEmpty();
+  //   req.check('email', 'Email is not valid').isEmail();
+  //   const errors = req.validationErrors();
+  //   if (errors) { return errorMessage(res, errors[0].msg); }
+
+  //   next();
+  // }
 }
 export default validateBusinesses;

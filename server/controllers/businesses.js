@@ -27,7 +27,7 @@ class Businesses {
         error: true
       });
     }
-    jwt.verify(req.token, secret, (error, userAuthData) => {
+    jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
         return res.status(403).json({
           message: 'Token unmatch'
@@ -43,13 +43,13 @@ class Businesses {
           city,
           state,
           description,
-          userId: userAuthData.id
+          userId: userData.id
         })
         .then(newBusiness => res.status(201).json({
           message: 'Business Registration Successful',
           error: false,
           newBusiness,
-          userAuthData,
+          userData,
         }))
         .then(() => {
           Photo
@@ -62,7 +62,7 @@ class Businesses {
   }
 
   /**
-     * @returns {Object} registerBusiness
+     * @returns {Object} updateBusinessProfile
      * @param {*} req
      * @param {*} res
      */
@@ -80,17 +80,17 @@ class Businesses {
       });
     }
 
-    jwt.verify(req.token, secret, (error, userAuthData) => {
+    jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
         return res.status(403).json({
           message: 'Token does not match'
         });
       }
       Business
-        .findOne({
+        .find({
           where: {
             id: businessId,
-            userId: userAuthData.id
+            userId: userData.id
           }
         })
         .then((business) => {
@@ -99,7 +99,7 @@ class Businesses {
               message: 'Cannot update business!',
             });
           }
-          business
+          Business
             .update({
               businessName,
               category,
@@ -115,6 +115,44 @@ class Businesses {
               businessUpdate,
             }));
         });
+    });
+  }
+  /**
+     * @returns {Object} removeBusiness
+     * @param {*} req
+     * @param {*} res
+     */
+  static removeBusiness(req, res) {
+    const { businessId } = req.params;
+    const { businessName, email } = req.body;
+    jwt.verify(req.token, secret, (err, userData) => {
+      if (err) {
+        res.status(403).json({
+          message: 'Token does not match'
+        });
+      } else {
+        Business
+          .findOne({
+            where: {
+              id: businessId,
+              userId: userData.id,
+              businessName,
+              email
+            }
+          })
+          .then((business) => {
+            if (!business) {
+              return res.status(404).send({
+                message: 'Cannot delete business!',
+              });
+            }
+            return business
+              .destroy()
+              .then(res.status(200).json({
+                message: 'Business Delete Successful!'
+              }));
+          });
+      }
     });
   }
 }
