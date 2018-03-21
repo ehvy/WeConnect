@@ -155,5 +155,26 @@ class Businesses {
       }
     });
   }
+  /**
+     * @returns {Object} getBusiness
+     * @param {*} req
+     * @param {*} res
+     */
+  static getBusiness(req, res) {
+    const { businessId } = req.params;
+    Business
+      .findById(businessId)
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({
+            message: 'Business Not Found!',
+          });
+        }
+        return res.status(200).json({
+          message: 'Business Found',
+          business,
+        });
+      });
+  }
 }
 export default Businesses;

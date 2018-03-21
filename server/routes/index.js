@@ -27,8 +27,8 @@ router.put('/api/v1/businesses/:businessId', validateBusiness.registerBusiness, 
 // remove a business profile route
 router.delete('/api/v1/businesses/:businessId', validateBusiness.secureRoute, Businesses.removeBusiness);
 
-// // get business route
-// router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
+// get business route
+router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
 
 // // get all businesses route
 // router.get('/api/v1/businesses', validateBusiness.queryBusinessByLocationOrCategory, Businesses.getAllBusiness);
