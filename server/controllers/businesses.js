@@ -3,7 +3,6 @@ import models from '../models/index';
 
 const { secret } = process.env;
 const { Business } = models;
-const { Photo } = models;
 
 /**
  * @class businesses
@@ -19,7 +18,6 @@ class Businesses {
       businessName, category, phoneNumber, email, address,
       city, state, description
     } = req.body;
-    let mainImage, smallImage1, smallImage2, smallImage3;
     if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
    Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
       return res.status(400).json({
@@ -27,38 +25,26 @@ class Businesses {
         error: true
       });
     }
-    jwt.verify(req.token, secret, (error, userData) => {
-      if (error) {
-        return res.status(403).json({
-          message: 'Token does not match'
-        });
-      }
-      Business
-        .create({
-          businessName,
-          category,
-          phoneNumber,
-          email,
-          address,
-          city,
-          state,
-          description,
-          userId: userData.id
-        })
-        .then(newBusiness => res.status(201).json({
-          message: 'Business Registration Successful',
-          error: false,
-          newBusiness,
-          userData,
-        }))
-        .then(() => {
-          Photo
-            .create({
-              mainImage, smallImage1, smallImage2, smallImage3
-            });
-        })
-        .catch(err => res.status(400).json({ err }));
-    });
+    const { userData } = req;
+    Business
+      .create({
+        businessName,
+        category,
+        phoneNumber,
+        email,
+        address,
+        city,
+        state,
+        description,
+        userId: userData.id
+      })
+      .then(newBusiness => res.status(201).json({
+        message: 'Business Registration Successful',
+        error: false,
+        newBusiness,
+        userData,
+      }))
+      .catch(err => res.status(400).json({ err }));
   }
 
   /**
@@ -79,43 +65,34 @@ class Businesses {
         error: true
       });
     }
-
-    jwt.verify(req.token, secret, (error, userData) => {
-      if (error) {
-        return res.status(403).json({
-          message: 'Token does not match'
-        });
-      }
-      Business
-        .find({
-          where: {
-            id: businessId,
-            userId: userData.id
-          }
-        })
-        .then((business) => {
-          if (!business) {
-            return res.status(404).send({
-              message: 'Cannot update business!',
-            });
-          }
-          Business
-            .update({
-              businessName,
-              category,
-              phoneNumber,
-              email,
-              address,
-              city,
-              state,
-              description
-            })
-            .then(businessUpdate => res.status(200).json({
-              message: 'Business Update Successful',
-              businessUpdate,
-            }));
-        });
-    });
+    Business
+      .find({
+        where: {
+          id: businessId,
+        }
+      })
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({
+            message: 'Cannot update business!',
+          });
+        }
+        business
+          .update({
+            businessName,
+            category,
+            phoneNumber,
+            email,
+            address,
+            city,
+            state,
+            description
+          })
+          .then(businessUpdate => res.status(200).json({
+            message: 'Business Update Successful',
+            businessUpdate,
+          }));
+      });
   }
   /**
      * @returns {Object} removeBusiness

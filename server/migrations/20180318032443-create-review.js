@@ -15,14 +15,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       businessId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -31,6 +23,14 @@ module.exports = {
           key: 'id',
           as: 'businessId',
         },
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
     }),
   down: queryInterface => queryInterface.dropTable('Reviews'),

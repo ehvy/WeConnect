@@ -1,3 +1,5 @@
+import Business from '../models/business';
+
 const errorMessage = (res, message) => res.status(400).json({
   message,
   error: true
@@ -46,6 +48,64 @@ class validateBusinesses {
       error: true
     });
   }
+
+  /**
+   * @returns {Object} query
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
+  static getBusinessByLocationOrCategory(req, res, next) {
+    const { location, category } = req.query;
+    if (location || category) {
+      if (location) {
+        let city, state;
+        Business
+          .findAll({
+            where: {
+              location: {
+                $iLike: `%${city}%`,
+                $or: `%${state}%`
+              }
+            }
+          })
+          .then((business) => {
+            if (business.length === 0) {
+              return res.status(404).json({
+                message: 'No business in this location',
+              });
+            }
+            return res.status(200).json({
+              message: `${business.length} business found`,
+              business
+            });
+          });
+      }
+      if (category) {
+        Business
+          .findAll({
+            where: {
+              category: {
+                $iLike: `%${category}%`,
+              }
+            }
+          })
+          .then((business) => {
+            if (business.length === 0) {
+              return res.status(404).json({
+                message: 'No business in this category!',
+              });
+            }
+            return res.status(200).json({
+              message: `${business.length} business found`,
+              business
+            });
+          });
+      }
+    }
+    return next();
+  }
+
   /**
    * @returns {Object} query
    * @param {*} req

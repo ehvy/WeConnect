@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: {
         args: true,
         msg: 'Business name already exists',
-      }
+      },
+      is: {
+        args: /([a-zA-Z0-9])+/,
+        msg: 'Business name can contain only alphabets and numbers',
+      },
     },
     category: {
       type: DataTypes.STRING,
@@ -36,13 +40,23 @@ module.exports = (sequelize, DataTypes) => {
     city: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Location Field Required!',
+        },
+        is: {
+          args: /([a-zA-Z0-9])+/,
+          msg: 'Location can contain alphabets and numbers',
+        },
+      },
     },
     state: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   });
@@ -50,10 +64,6 @@ module.exports = (sequelize, DataTypes) => {
     Business.hasMany(models.Review, {
       foreignKey: 'businessId',
       as: 'reviews',
-    });
-    Business.hasMany(models.Photo, {
-      foreignKey: 'businessId',
-      as: 'photos',
     });
     Business.belongsTo(models.User, {
       foreignKey: 'userId',
