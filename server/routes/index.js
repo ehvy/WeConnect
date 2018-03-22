@@ -2,6 +2,7 @@ import express from 'express';
 
 import Users from '../controllers/users';
 import Businesses from '../controllers/businesses';
+import Reviews from '../controllers/reviews';
 import validateUser from '../middleware/userMiddleware';
 import validateBusiness from '../middleware/businessMiddleware';
 
@@ -33,8 +34,8 @@ router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
 // get all businesses route
 router.get('/api/v1/businesses', Businesses.getAllBusiness);
 
-// // add review route
-// router.post('/api/v1/businesses/:businessId/reviews', validateBusiness.addReview, Businesses.addReview);
+// add review route
+router.post('/api/v1/businesses/:businessId/reviews', validateBusiness.secureRoute, Reviews.addReview);
 
 // // get all business review route
 // router.get('/api/v1/businesses/:businessId/reviews', Businesses.getAllReviews);

@@ -272,15 +272,15 @@ definitions:
 
   RegisterBusiness:
     type: "object"
-    required: ["business_name", "category", "Phone_number", "email", "address", "city", "state", "description"]
+    required: ["businessName", "category", "PhoneNumber", "email", "address", "city", "state", "description"]
     properties:
-      business_name:
+      businessName:
         type: "string"
         uniqueItems: true
       category:
         type: "string"
         uniqueItems: true
-      phone_number:
+      phoneNumber:
         type: "string"
         uniqueItems: true
       email:
@@ -318,7 +318,7 @@ definitions:
         
   BusinessReview:
     type: "object"
-    required: ["business_name", "review"]
+    required: ["businessName", "review"]
     properties:
       businessname:
         type: "string"

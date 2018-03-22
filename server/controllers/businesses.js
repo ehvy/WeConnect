@@ -15,11 +15,11 @@ class Businesses {
      * @param {*} res
      */
   static registerBusiness(req, res) {
-    let mainImage, smallImage1, smallImage2, smallImage3;
     const {
       businessName, category, phoneNumber, email, address,
       city, state, description
     } = req.body;
+    let mainImage, smallImage1, smallImage2, smallImage3;
     if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
    Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
       return res.status(400).json({
@@ -30,7 +30,7 @@ class Businesses {
     jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
         return res.status(403).json({
-          message: 'Token unmatch'
+          message: 'Token does not match'
         });
       }
       Business
@@ -143,13 +143,13 @@ class Businesses {
           .then((business) => {
             if (!business) {
               return res.status(404).send({
-                message: 'Cannot delete business!',
+                message: 'Cannot delete business',
               });
             }
             return business
               .destroy()
               .then(res.status(200).json({
-                message: 'Business Delete Successful!'
+                message: 'Business Delete Successful'
               }));
           });
       }
@@ -167,7 +167,7 @@ class Businesses {
       .then((business) => {
         if (!business) {
           return res.status(404).send({
-            message: 'Business Not Found!',
+            message: 'Business Not Found',
           });
         }
         return res.status(200).json({
@@ -185,7 +185,7 @@ class Businesses {
     Business
       .all()
       .then(business => res.status(200).json({
-        message: 'Businesses found!',
+        message: 'Businesses found',
         business
       }))
       .catch(error => res.status(500).json(error));
