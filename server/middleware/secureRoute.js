@@ -19,15 +19,15 @@ class ValidateRoutes {
     const bearerHeader = req.headers.authorization;
     if (!bearerHeader) {
       return res.status(403).json({
-        message: 'Add token to header',
+        message: 'Login and try again',
         error: true
       });
     }
     req.token = bearerHeader;
     jwt.verify(req.token, secret, (error, userData) => {
       if (error) {
-        return res.status(403).json({
-          message: 'Token does not match'
+        return res.status(400).json({
+          message: 'Login and try again'
         });
       }
       req.userData = userData;
@@ -39,7 +39,7 @@ class ValidateRoutes {
         })
         .then((user) => {
           if (!user) {
-            return res.status(404).send({
+            return res.status(401).send({
               message: 'Cannot update business!',
             });
           }
