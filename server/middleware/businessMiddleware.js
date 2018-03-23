@@ -70,7 +70,7 @@ class validateBusinesses {
     const { location, category } = req.query;
     if (location || category) {
       if (location) {
-        Business
+        return Business
           .findAll({
             where: {
               city: {
@@ -91,7 +91,7 @@ class validateBusinesses {
           });
       }
       if (category) {
-        Business
+        return Business
           .findAll({
             where: {
               category: {

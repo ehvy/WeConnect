@@ -37,7 +37,11 @@ class Users {
     const { username, password } = req.body;
     User.findOne({ where: { username } })
       .then((logInUser) => {
-        if (logInUser && hashCode.compareSync(password, logInUser.password)) {
+        if (!logInUser) {
+          return res.status(400).json({
+            message: 'username or password is not valid'
+          });
+        } else if (logInUser && hashCode.compareSync(password, logInUser.password)) {
           const userInfo = {
             username: logInUser.username,
             email: logInUser.email,
