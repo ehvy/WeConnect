@@ -70,7 +70,11 @@ class validateBusinesses {
     const { location, category } = req.query;
     if (location || category) {
       if (location) {
+<<<<<<< HEAD
         Business
+=======
+        return Business
+>>>>>>> chore/improve-directory-structure
           .findAll({
             where: {
               city: {
@@ -91,7 +95,7 @@ class validateBusinesses {
           });
       }
       if (category) {
-        Business
+        return Business
           .findAll({
             where: {
               category: {
