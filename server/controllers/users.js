@@ -18,7 +18,7 @@ class Users {
     return User.create({
       username: req.body.username,
       email: req.body.email,
-      //passwords are hashed by bcrypt
+      // passwords are hashed by bcrypt
       password: hashSync(req.body.password, 10),
       password2: hashSync(req.body.password, 10),
     })
