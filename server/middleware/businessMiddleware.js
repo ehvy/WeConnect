@@ -1,4 +1,6 @@
-import Business from '../models/business';
+import models from '../models/index';
+
+const { Business } = models;
 
 const errorMessage = (res, message) => res.status(400).json({
   message,
@@ -59,13 +61,12 @@ class validateBusinesses {
     const { location, category } = req.query;
     if (location || category) {
       if (location) {
-        let city, state;
+        let city;
         Business
           .findAll({
             where: {
               location: {
-                $iLike: `%${city}%`,
-                $or: `%${state}%`
+                $iLike: `%${city}%`
               }
             }
           })

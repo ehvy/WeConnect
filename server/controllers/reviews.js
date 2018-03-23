@@ -1,7 +1,5 @@
-import jwt from 'jsonwebtoken';
 import models from '../models/index';
 
-const { secret } = process.env;
 const { Business } = models;
 const { Review } = models;
 
@@ -17,33 +15,25 @@ class Reviews {
   static addReview(req, res) {
     const { businessId } = req.params;
     const { name, review } = req.body;
-    jwt.verify(req.token, secret, (err) => {
-      if (err) {
-        res.status(403).json({
-          message: 'Token does not match'
-        });
-      } else {
-        Business
-          .findById(businessId)
-          .then((business) => {
-            if (!business) {
-              return res.status(404).send({
-                message: 'Cannot post review',
-              });
-            }
-            Review
-              .create({
-                name,
-                review,
-                businessId
-              });
-            return res.status(200).json({
-              name,
-              review
-            });
+    Business
+      .findById(businessId)
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({
+            message: 'Cannot post review',
           });
-      }
-    });
+        }
+        Review
+          .create({
+            name,
+            review,
+            businessId
+          });
+        return res.status(200).json({
+          name,
+          review
+        });
+      });
   }
   /**
      * @returns {Object} getAllreviews

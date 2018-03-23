@@ -27,7 +27,7 @@ router.post('/api/v1/businesses', validateBusiness.registerBusiness, validateRou
 router.put('/api/v1/businesses/:businessId', validateBusiness.registerBusiness, validateRoute.secureBusinessRoute, Businesses.updateBusinessProfile);
 
 // remove a business profile route
-router.delete('/api/v1/businesses/:businessId', validateBusiness.secureRoute, Businesses.removeBusiness);
+router.delete('/api/v1/businesses/:businessId', validateBusiness.secureRoute, validateRoute.secureBusinessRoute, Businesses.removeBusiness);
 
 // get business route
 router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
@@ -36,7 +36,7 @@ router.get('/api/v1/businesses/:businessId', Businesses.getBusiness);
 router.get('/api/v1/businesses', validateBusiness.getBusinessByLocationOrCategory, Businesses.getAllBusiness);
 
 // add review route
-router.post('/api/v1/businesses/:businessId/reviews', validateBusiness.secureRoute, Reviews.addReview);
+router.post('/api/v1/businesses/:businessId/reviews', validateRoute.secureBusinessRoute, Reviews.addReview);
 
 // get all business review route
 router.get('/api/v1/businesses/:businessId/reviews', Reviews.getAllReviews);

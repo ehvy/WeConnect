@@ -1,7 +1,5 @@
-import jwt from 'jsonwebtoken';
 import models from '../models/index';
 
-const { secret } = process.env;
 const { Business } = models;
 
 /**
@@ -102,35 +100,27 @@ class Businesses {
   static removeBusiness(req, res) {
     const { businessId } = req.params;
     const { businessName, email } = req.body;
-    jwt.verify(req.token, secret, (err, userData) => {
-      if (err) {
-        res.status(403).json({
-          message: 'Token does not match'
-        });
-      } else {
-        Business
-          .findOne({
-            where: {
-              id: businessId,
-              userId: userData.id,
-              businessName,
-              email
-            }
-          })
-          .then((business) => {
-            if (!business) {
-              return res.status(404).send({
-                message: 'Cannot delete business',
-              });
-            }
-            return business
-              .destroy()
-              .then(res.status(200).json({
-                message: 'Business Delete Successful'
-              }));
+
+    Business
+      .findOne({
+        where: {
+          id: businessId,
+          businessName,
+          email
+        }
+      })
+      .then((business) => {
+        if (!business) {
+          return res.status(404).send({
+            message: 'Cannot delete business',
           });
-      }
-    });
+        }
+        return business
+          .destroy()
+          .then(res.status(200).json({
+            message: 'Business Delete Successful'
+          }));
+      });
   }
   /**
      * @returns {Object} A Business
