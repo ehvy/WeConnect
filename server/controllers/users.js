@@ -18,6 +18,7 @@ class Users {
     return User.create({
       username: req.body.username,
       email: req.body.email,
+      //passwords are hashed by bcrypt
       password: hashSync(req.body.password, 10),
       password2: hashSync(req.body.password, 10),
     })
@@ -47,6 +48,7 @@ class Users {
             email: logInUser.email,
             id: logInUser.id
           };
+          // generate token
           const token = jwt.sign(userInfo, secret, { expiresIn: '10h' });
           return res.status(201).json({
             message: 'Successful login',

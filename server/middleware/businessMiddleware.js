@@ -31,6 +31,7 @@ class validateBusinesses {
     if (errors) {
       return errorMessage(res, errors[0].msg);
     }
+    // check if phone number has only numbers
     if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
    Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
       return res.status(400).json({
@@ -49,6 +50,7 @@ class validateBusinesses {
    * @param {*} next
    */
   static secureRoute(req, res, next) {
+    // check it token is present in header
     const bearerHeader = req.headers.authorization;
     if (typeof bearerHeader !== 'undefined') {
       req.token = bearerHeader;

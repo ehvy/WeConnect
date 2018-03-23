@@ -17,7 +17,6 @@ class Businesses {
       city, state, description
     } = req.body;
 
-    // check is req.phoneNumber contains only numbers
     const { userData } = req;
     Business
       .create({
