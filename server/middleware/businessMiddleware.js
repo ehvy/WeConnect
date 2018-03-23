@@ -70,7 +70,6 @@ class validateBusinesses {
     const { location, category } = req.query;
     if (location || category) {
       if (location) {
-        let city;
         Business
           .findAll({
             where: {
