@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+#link-btn2{
+    color: rgb(4, 148, 153);
+}
+
 .businessSection{
     background:rgb(49, 56, 56);
     padding: 30px;
@@ -59,7 +63,7 @@
 }
 
 .navbar-brand:hover{
-    border: 1px solid rgb(4, 148, 153);
+    background-color: rgb(190, 13, 13);
 }
 
 .container-foot{

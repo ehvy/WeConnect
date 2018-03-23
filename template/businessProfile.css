@@ -12,6 +12,14 @@
     border-radius: 4px
 }
 
+#link-btn{
+    color: white; 
+}
+
+#link-btn2{
+    color: rgb(4, 148, 153);
+  }
+
 .mainImage{
     width: auto;
 }
@@ -21,12 +29,21 @@
     color: white;
 }
 
+#comp-name{
+    margin-top: 40px;
+}
+
 .navbar-brand:hover{
-    border: 1px solid rgb(4, 148, 153);
+    background-color: rgb(190, 13, 13)
 }
 
 .navbar-toggler, .navbar-toggler-icon{
     background:rgb(4, 148, 153);
+}
+
+#update-bus, #rev{
+    color:white; 
+    text-decoration:none;
 }
 
 .container-foot{
@@ -38,7 +55,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    width:100%
+    width:100%;
+    margin-top: 58px
 }
 .dropdown-item:hover{
     background: rgb(4, 148, 153);
