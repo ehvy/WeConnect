@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="../template/catalogPage.css" rel="stylesheet" type="text/css" />        
+        <link href="catalogPage.css" rel="stylesheet" type="text/css" />        
         <title>WeConnect</title>  
     </head>
     <body>
         <div class="container-default">
             <nav class="navbar navbar-expand-lg navbar-dark">
-                <a class="navbar-brand" href="index.html" style="color:white"><h2><span style="color:rgb(4, 148, 153)">W</span><span style="color:rgb(4, 148, 153)">e</span>Connect</h2></a>
+                <a class="navbar-brand" href="index.html" id="link-btn"><h2><span id="link-btn2">W</span><span id="link-btn2">e</span>Connect</h2></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -153,7 +153,7 @@
                     <div class="form-group">
                         <div class="col-md-4 .offset-md-3">
                             <select class="form-control">
-                                <option selected>filter by Category...</option>
+                                <option selected>Search by Category...</option>
                                 <option>Sports</option>
                                 <option>Fashion</option>
                                 <option>Info tech</option>
@@ -165,14 +165,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-4 .offset-md-3">
-                            <select class="form-control">
-                                <option selected>filter by Location...</option>
-                                <option>Lagos</option>
-                                <option>Abuja</option>
-                                <option>Imo</option>
-                                <option>Port-harcourt</option>
-                                <option>Calabar</option>
-                            </select>
+                            <input type="text" class="form-control" name="business_location" placeholder="Search by location..." required />  
                         </div>
                     </div>
                     <div class="form-group">
@@ -183,15 +176,14 @@
                 </form>
             </div>
         </div>
+        <footer>
+            <div class="container-foot">
+                <h5>WeConnect &copy;2018 </h5> 
+            </div>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="main.js"></script>
     </body>
-    <footer>
-        <div class="container-foot">
-            <h5>WeConnect &copy;2018 </h5> 
-        </div>
-    </footer>
-
 </html>

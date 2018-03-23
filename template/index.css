@@ -4,6 +4,14 @@
   padding: 20px;
 }
 
+#link-btn{
+  color: white; 
+}
+
+#link-btn2{
+  color: rgb(4, 148, 153);
+}
+
 .navbar{
   padding-left: 50px;
   padding-right: 50px;
@@ -31,7 +39,7 @@
 }
 
 .navbar-brand:hover{
-  border: 1px solid rgb(4, 148, 153);
+  background-color: rgb(190, 13, 13)
 }
 
 .btn{
@@ -71,4 +79,8 @@
   left: 0;
   width:100%;
   position: relative;
+}
+
+#index-image{
+  width: 100%;
 }
