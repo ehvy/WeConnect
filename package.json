@@ -11,6 +11,11 @@
     "check-coverage": "nyc check-coverage --lines 70 --per-file",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test"
   },
+  "nyc": {
+    "exclude": [
+      "server/test/**.js"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
