@@ -74,8 +74,8 @@ class validateBusinesses {
         Business
           .findAll({
             where: {
-              location: {
-                $iLike: `%${city}%`
+              city: {
+                $iLike: `%${location}%`
               }
             }
           })
