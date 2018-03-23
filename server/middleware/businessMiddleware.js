@@ -28,7 +28,16 @@ class validateBusinesses {
     req.check('state', 'State is required').notEmpty();
     req.check('description', 'Description is required').notEmpty();
     const errors = req.validationErrors();
-    if (errors) { return errorMessage(res, errors[0].msg); }
+    if (errors) {
+      return errorMessage(res, errors[0].msg);
+    }
+    if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
+   Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
+      return res.status(400).json({
+        message: 'Please enter a valid phone number',
+        error: true
+      });
+    }
 
     next();
   }

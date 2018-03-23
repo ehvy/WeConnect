@@ -16,6 +16,8 @@ class Businesses {
       businessName, category, phoneNumber, email, address,
       city, state, description
     } = req.body;
+
+    // check is req.phoneNumber contains only numbers
     if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
    Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
       return res.status(400).json({
@@ -56,13 +58,6 @@ class Businesses {
       businessName, category, phoneNumber, email, address,
       city, state, description
     } = req.body;
-    if (Number(req.body.phoneNumber) * 1 !== Number(req.body.phoneNumber) ||
-   Number(req.body.phoneNumber.substring(1)) * 1 !== Number(req.body.phoneNumber.substring(1))) {
-      return res.status(400).json({
-        message: 'Please enter a valid phone number',
-        error: true
-      });
-    }
     Business
       .find({
         where: {
