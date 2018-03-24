@@ -16,11 +16,11 @@
     background: rgb(223, 215, 215);
     padding: 50px;
     width: auto;
-    border: 5px solid rgb(4, 148, 153);
+    border: 1px solid rgb(4, 148, 153);
 }
 
 .navbar-brand:hover{
-    background-color: rgb(190, 13, 13)
+    background-color: rgb(33, 167, 172);
 }
 
 .btn{
